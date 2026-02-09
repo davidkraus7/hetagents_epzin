@@ -1,0 +1,341 @@
+\documentclass{beamer}
+\usepackage{booktabs}
+\usetheme{Boadilla}
+\setbeamersize{
+  text margin left=0.5cm,
+  text margin right=0.5cm,
+}
+
+\title{Consumption and portfolio choice with recursive preferences and uninsurable labour income risk}
+\author{David Kraus}
+\institute{École Polytechnique}
+\date{April 9, 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+
+\section{Motivation}
+
+\begin{frame}
+\frametitle{Motivation}
+
+\begin{itemize}
+    \item Inequality matters for macroeconomics
+    \item Incomplete markets can explain why
+    \item Decoupling RRA and IES is arguably also important
+    \begin{itemize}
+      \item A priori no reason for reciprocal relationship as per power utility
+      \item Coupled parameters confound respective effects
+      \item Improve ability to quantitatively match empirical moments
+      \item Long-run risk + EZ preferences shows promise in resolving asset pricing puzzles (Bansal \& Yaron, 2004)
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\section{The model}
+\subsection{Model overview}
+
+\begin{frame}
+\frametitle{Model overview}
+\begin{itemize}
+    \item Unit continuum of households
+    \item Households face idiosyncratic labour income shocks and an exogenous borrowing constraint (uninsurable labour income risk)
+    \item Households can invest in a risk-free and a risky asset
+    \item Partial equilibrium approach, i.e., prices are given
+    \item Time is continuous, $t\in[0,+\infty)$
+    \begin{itemize}
+        \item FOCs hold with equality on the interior of the state space
+        \item Adjoint relationship between HJB generator and KF
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\subsection{Household problem}
+
+\begin{frame}
+\frametitle{Household problem}
+\textbf{Preferences:} The individual lifetime utility of a household is given by,
+$$ V_0=\max_{\{c_t, \theta_t\}_{t\geq0}}{\mathbb{E}_0[\int_0^{\infty}f(c_t,V_t)dt]} $$
+
+Where $f(\cdot)$ denotes the normalized aggregator,
+$$ f(c,V) = \frac{\beta}{1 - \sigma} (1 - \gamma) V \left[ \left( \frac{c}{((1 - \gamma) V)^{\frac{1}{1 - \gamma}}} \right)^{1 - \sigma} - 1 \right]$$
+
+Furthermore,  $V_t = \max_{\{c_t, \theta_t\}_{t\geq0}}{\mathbb{E}_0[\int_t^{\infty}f(c_s,V_s)ds]}$
+
+\hfill
+
+\textbf{Idiosyncratic labour income risk:} Labour income follows a two-state Poisson process, where $\tilde{z} \in \{z^L, z^H\}$ with transition intensities $\{\lambda^L, \lambda^H\}$
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{Asset returns:} Safe asset returns are deterministic and follow,
+$$dP_t=rP_tdt$$ 
+Risky asset returns are stochastic and follow a diffusion process,
+$$dQ_t=\mu Q_tdt + \nu Q_tdW_t$$
+
+\textbf{Budget, borrowing and short-sale constraint:} 
+$$da_t = (z_t+r_ta_t+\theta_t(\mu-r)a_t-c_t)dt + \theta_ta_t\nu dW_t$$
+$$a_t \geq -\phi$$
+$$\frac{a_t + \phi}{a_t} \geq \theta_t \geq 0$$
+
+\end{frame}
+
+\begin{frame}
+\textbf{Definition:} The household problem in sequence form becomes,
+$$\max_{\{c_t, \theta_t\}_{t\geq0}}{\mathbb{E}_0[\int_0^{\infty}f(c_t,V_t)dt]} \text{, such that}$$
+$$\tilde{z} \in \{z^L, z^H\} \text{ Poisson with transition intensities } \{\lambda^L, \lambda^H\}$$
+$$da_t = (z_t+r_ta_t+\theta_t(\mu-r)a_t-c_t)dt + \theta_ta_t\nu dW_t$$
+$$a_t \geq -\phi$$
+$$\frac{a_t + \phi}{a_t} \geq \theta_t \geq 0$$
+
+Given $(z_0, a_0) \in \{z^L, z^H\}\times [-\phi,+\infty)$ initial income and wealth
+
+\hfill
+
+\textbf{Solution:} A solution to the household problem is a stochastic process $\{c_t, \theta_t\}_{t\geq0}$
+
+\end{frame}
+
+\subsection{Recursive representation}
+
+\begin{frame}
+\frametitle{Recursive representation}
+
+\begin{itemize}
+    \item Intuition from dynamic programming: a recursive representation significantly simplifies the problem
+    \item In continuous time, solving the problem in sequence form is equivalent to solving a partial differential equation, namely,
+    \begin{align*}
+    0 = \max_{c, \theta}\{{f(c, V(a,z^j))+\mathbb{E}\frac{dV}{dt}\}}
+    \end{align*}
+    \item Applying Ito's Lemma this yields,
+    \begin{align*}
+    0 = \max_{c, \theta}\{f(c, V(a,z^j))+V_a(a,z^j)(z^jw+ra+\theta(\mu-r)a-c) \\ +\frac{1}{2}V_{aa}(a,z^j)a^2\theta^2\nu^2 + \lambda^j(V(a,z^{-j})(a)-V(a,z^j))\}
+    \end{align*}
+    \item The max operator can be resolved by taking FOCs w.r.t. $c$ and $\theta$ and substituting
+\end{itemize}
+
+\end{frame}
+
+\subsection{Boundary conditions}
+
+\begin{frame}
+\frametitle{Boundary conditions}
+\begin{itemize}
+    \item The first boundary condition is provided by (or rather enforces) the borrowing constraint, namely,
+    \begin{align*}
+    V_a(-\phi, z^j) \geq f_c(\underline{c}^*,  V(-\phi, z^j))
+    \end{align*}
+    \item The second boundary condition requires some more work. In particular, we use the following proposition,
+\end{itemize}
+
+\hfill
+
+\centering
+\scalebox{0.8}{
+\begin{minipage}{0.8\linewidth}
+\textbf{Proposition 1:} \textit{With recursive utility, asymptotic individual policy functions as $a \to \infty$ are given by,}
+\begin{align*}
+    \theta(a,z^j) &\sim \frac{\mu - r}{\gamma\nu^2} \\
+    c(a,z^j) &\sim \left( \frac{\beta}{\sigma} - \frac{(1-\sigma)(\mu-r)^2}{2\gamma\sigma\nu^2} - \frac{r(1-\sigma)}{\sigma} \right)a
+\end{align*}
+\end{minipage}
+}
+
+\hfill
+
+\begin{itemize}
+    \item By the FOC w.r.t. $\theta$ this allows us to impose,
+    \begin{align*}
+         V_{aa}(a,z^j) \sim -\gamma\frac{V_a(a,z^j)}{a} \text{, as } a \to \infty
+    \end{align*}
+\end{itemize}
+\end{frame}
+
+\subsection{The stationary wealth distribution}
+
+\begin{frame}
+\frametitle{The stationary wealth distribution}
+\begin{itemize}
+    \item By the adjoint relationship between the HJB generator and the KF,
+    \begin{align*}
+        \frac{dg(a,z^j)}{dt}=-\frac{d}{da} [ (z^jw+ra+\theta(a,z^j)(\mu-r)a-c(a,z^j))g(a, z^j) ] \\ + \frac{1}{2}\frac{d^2}{da^2}[a^2\theta(a,z^j)^2\nu^2g(a,z^j)]  -\lambda^jg(z^j,a)+\lambda^{-j}g(z^{-j},a)
+    \end{align*}
+    \item Finding the stationary wealth distribution simply means solving,
+    \begin{align*}
+        \frac{dg(a,z^j)}{dt} = 0
+    \end{align*}
+\end{itemize}
+\end{frame}
+
+\section{Numerical method}
+
+\begin{frame}
+\frametitle{Numerical method}
+\begin{itemize}
+    \item Discretize the state space into a matrix of size $I \times 2$
+    \item Approximate the first derivative with an upwind scheme and the second derivative with a central difference
+    \item Update the value function using a semi-implicit one-step scheme
+    \item Consistency + stability + monotonicity $\implies$ convergence to unique viscosity solution (Barles \& Souganidis, 1991)
+    \item Solve KF equation "for free" by adjoint relationship, i.e., \\ if $\textbf{A}$ discretizes $\mathcal{A}V=\mathbb{E}\frac{dV}{dt}$ then $\mathbf{A}^\intercal$ discretizes $\mathcal{A}^*g$
+    \item Obtain stationary wealth distribution by solving the eigenvalue problem,
+    \begin{align*}
+        \mathbf{A}^\intercal\mathbf{g} = 0
+    \end{align*}
+\end{itemize}
+\end{frame}
+
+\section{Calibration}
+
+\begin{frame}
+\frametitle{Calibration}
+\centering
+\renewcommand{\arraystretch}{1.2}
+\scalebox{0.85}{
+\begin{tabular}{l c}
+
+\toprule
+Parameter & Value \\
+\midrule
+
+\underline{Preferences} \\
+$\beta$ (discount rate) & 0.05 \\
+$\gamma$ (coefficient of relative risk aversion) & 4 \\
+$\psi$ (intertemporal elasticity of substitution) & 0.5 \\
+
+\underline{Labour income} \\
+$\{z^L, z^H\}$ (income levels) & $\{0.03, 0.09 \}$ \\
+$\{\lambda^L, \lambda^H\}$ (transition intensities) & $\{0.5, 0.5 \}$ \\
+
+\underline{Asset returns} \\
+$r$ (risk-free rate) & 0.03 \\
+$\mu$ (expected equity returns) & 0.07 \\
+$\nu$ (volatility of equity returns) & 0.2 \\
+$\phi$ (borrowing constraint) & 0 \\
+
+\end{tabular}
+}
+\end{frame}
+
+\section{Results}
+
+\begin{frame}
+\frametitle{Results}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig5.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig6.jpg}
+    \end{minipage}
+    \\[1em] % Vertical spacing between rows
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig7.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig8.jpg}
+    \end{minipage} 
+    \label{fig:overall}
+    \caption{Individual policy functions and the stationary wealth distribution for an increase in risk aversion from $\gamma=4$ to $\gamma=5$}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig9.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig10.jpg}
+    \end{minipage}
+    \\[1em] % Vertical spacing between rows
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig11.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig12.jpg}
+    \end{minipage} 
+    \label{fig:overall}
+    \caption{Individual policy functions and the stationary wealth distribution for an increase in the intertemporal elasticity of substitution from $\psi=0.4$ to $\psi=0.6$}
+    \end{figure}
+\end{frame}
+
+\section{Extensions}
+
+\begin{frame}
+\frametitle{Extensions}
+\begin{itemize}
+    \item Cointegrated labour and equity markets to explain increasing risky asset share (Benzoni et al., 2007)
+    \item Stock market entry cost to explain limited participation (Gomes \& Michaelides, 2007)
+    \item General equilibrium with aggregate risk. This complicates the problem (a lot) and leads to a "monster equation". Moving away \\ from rational expectations could resolve this issue (Moll, 2024)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[c]
+  \centering
+  {\usebeamercolor[fg]{title} \usebeamerfont{title} Thank you!}
+\end{frame}
+
+\begin{frame}{Some more results}
+    \begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig13.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig14.jpg}
+    \end{minipage}
+    \\[1em] % Vertical spacing between rows
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig15.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig16.jpg}
+    \end{minipage} 
+    \label{fig:overall}
+    \caption{Individual policy functions and the stationary wealth distribution for an increase in labour income risk}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig17.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig18.jpg}
+    \end{minipage}
+    \\[1em] % Vertical spacing between rows
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig19.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{fig20.jpg}
+    \end{minipage} 
+    \label{fig:overall}
+    \caption{Individual policy functions and the stationary wealth distribution for a time-varying equity premium}
+    \end{figure}
+\end{frame}
+
+\end{document}

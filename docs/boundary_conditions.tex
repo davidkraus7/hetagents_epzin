@@ -1,0 +1,207 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\graphicspath{ {./images/} }
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\linespread{2}
+\setlength{\parindent}{0pt}
+
+\title{Two-asset model with recursive preferences}
+\author{David Kraus}
+\date{} 
+
+\begin{document}
+
+\maketitle
+
+\section{Income and Returns}
+
+Income $\tilde{z}$ follows a Poisson process that takes values in $\tilde{z} \in \{z^L, z^H\}$ with transition intensities $\{\lambda^L, \lambda^H\}$.
+
+Asset returns for the safe asset are deterministic and follow
+$dP_t=rP_tdt$.
+
+Asset returns for the risky asset are stochastic and follow a diffusion process as per $dQ_t=\mu Q_tdt + \nu Q_tdW_t$.
+
+\section{Household Problem in Sequence Form}
+
+As in the Merton model, we define the parameters $a_t=b_tP_t+\pi_tQ_t$ and $\theta_t = \frac{\pi_tQ_t}{a_t}$, such that $\theta_t$ denotes the share of risky assets. The household problem in sequence form then becomes,
+$$\max_{c_t, \theta_t}{\mathbb{E}_0[\int_0^{\infty}f(c_t,V_t)dt]}$$ such that, $$da_t = (z_tw_t+r_ta_t+\theta_t(\mu-r_t)a_t-c_t)dt + \theta_ta_t\nu dW_t$$ $$a_t\geq\underline{a}$$
+
+Here, $f(\cdot)$ denotes the normalized aggregator, and $V_t = \max_{c_t, \theta_t}{\mathbb{E}_0[\int_t^{\infty}f(c_s,V_s)ds]}$. In particular,
+$$f(c,V) = \frac{\beta}{1 - \sigma} (1 - \gamma) V \left[ \left( \frac{c}{((1 - \gamma) V)^{\frac{1}{1 - \gamma}}} \right)^{1 - \sigma} - 1 \right]$$
+
+\section{Household Problem in Recursive Form}
+
+For now, let us assume that $r_t = r$ and $w_t = w$ in order to obtain a stationary HJB. Using Ito's Lemma and the fact that the flow payoff is not discounted this yields,
+$$0=\max_{c, \theta}\{{f(c, V_j(a))+V_j'(a)(z^jw+ra+\theta(\mu-r)a-c)+\frac{1}{2}V_j''(a)a^2\theta^2\nu^2}+\lambda^j(V_{-j}(a)+V_j(a))\}$$
+
+We can resolve the $\max$ operator and obtain the implicit policy functions $c(a)$ and $\theta(a)$ by taking F.O.C.'s with respect to $c$ and $\theta$. Using the functional form of the normalized aggregator $f(\cdot)$, where $1/\sigma$ denotes the IES and $\gamma$ denotes the coefficient of RRA, this yields,
+$$c^{-\sigma}\beta ((1-\gamma)V_j(a))^{\frac{\sigma-\gamma}{1-\gamma}}=V_j'(a) \implies c(a) = \left[ \frac{1}{\beta}V_j'(a)((1-\gamma)V_j(a))^{\frac{\gamma-\sigma}{1-\gamma}} \right]^{-1/\sigma}$$
+$$(\mu-r)aV_j'(a)+\theta a^2\nu^2V_j''(a) = 0 \implies \theta(a) = -\frac{(\mu - r)V_j'(a)}{a\nu^2V_j''(a)}$$
+
+
+\section{Boundary Conditions}
+The borrowing constraint allows us to impose the following boundary condition,
+$$V_j'(\underline{a}) \geq f'(\underline{c}^*, V_j)$$
+
+Here, $\underline{c}^*$ denotes the consumption level of staying put at the borrowing constraint. Note that we need to know $\theta(\underline{a})$ to impose this boundary condition, since $\theta(a)$ determines the consumption level of staying put. We can again circumvent this issue by imposing a no-borrowing constraint, i.e., $\underline{a}=0$.
+
+\hfill
+
+In order to impose the second boundary condition, we use the following proposition. The proposition and its proof are directly analogous to the second part of Proposition 2 in Achdou et al. (2021).
+
+\hfill
+
+\textbf{Proposition 1:} \textit{With recursive utility, asymptotic individual policy functions as $a \to \infty$ are given by,}
+$$\theta_j(a) \sim \frac{\mu - r}{\gamma\nu^2}$$
+$$c_j(a) \sim \left( \frac{\beta}{\sigma} - \frac{(1-\sigma)(\mu-r)^2}{2\gamma\sigma\nu^2}  -\frac{r(1-\sigma)}{\sigma} \right)a$$
+
+\hfill
+
+In order to prove Proposition 1 we first derive two auxiliary lemmas. Lemma 1 derives an analytical solution for the household problem without income and without the borrowing constraint. Lemma 2 shows a certain homogeneity property of the value function. We can then show that the solution of the household problem presented in Lemma 1 is equivalent to the solution of the household problem as wealth tends to infinity.
+
+\hfill
+
+\textbf{Lemma 1:} \textit{Let $f(\cdot)$ denote the normalized aggregator. Consider the problem,}
+\begin{equation}
+    0 = \max_{c, \theta}\{ f(c,V(a)) + V'(a)(ra+\theta(\mu-r)a-c)+\frac{1}{2}V''(a)\theta^2\nu^2a^2 \}
+\end{equation}
+\textit{The optimal policy functions that solve this problem are given by,}
+$$\theta(a) = \frac{\mu -r}{\gamma\nu^2}$$
+$$c(a)= \left( \frac{\beta}{\sigma} - \frac{(1-\sigma)(\mu-r)^2}{2\gamma\sigma\nu^2}  -\frac{r(1-\sigma)}{\sigma} \right)a$$
+
+\hfill
+
+\textbf{Proof Lemma 1:} Let us first define,
+$$H(m,p) := \max_c\{f(c, m)-cp\}$$ 
+$$G(p,q):=\max_\theta\{p\theta(\mu-r)a +\frac{1}{2}q\theta^2\nu^2a^2\}$$
+
+Resolving the max operators gives us,
+$$H(m,p) = \frac{\sigma}{1-\sigma}\beta^{1/\sigma}((1-\gamma)m)^{\frac{\sigma-\gamma}{\sigma(1-\gamma)}}p^{\frac{\sigma-1}{\sigma}}-\frac{\beta(1-\gamma)}{1-\sigma}m$$
+$$G(p,q)=-\frac{p^2(\mu-r)^2}{2q\nu^2}$$
+
+Now, we can rewrite the problem as,
+$$0 = H(V(a), V'(a)) + G(V'(a), V''(a))+raV'(a)$$
+
+Let us guess the solution $V(a) = Aa^{1-\gamma}$. Then, $V'(a) = (1-\gamma)Aa^{-\gamma}$ and $V''(a)=-\gamma(1-\gamma)Aa^{-\gamma-1}$. It is straightforward to verify that this solution satisfies the HJB for some $A \in \mathbb{R}$, where $A$ depends on the parameters of the problem.
+
+\hfill
+
+Furthermore, the F.O.C. with respect to consumption yields,
+$$V'(a) = \frac{\partial f}{\partial c}(a) \Leftrightarrow c(a) = \beta^{1/\sigma}(1-\gamma)^{\frac{\sigma-1}{\sigma(1-\gamma)}}A^{\frac{\sigma-1}{\sigma(1-\gamma)}}a$$
+
+Putting everything together, we can now write,
+\begin{equation*}
+\begin{aligned}
+    0 &= H(V(a), V'(a))+G(V'(a), V''(a))+raV'(a) \\
+    \Leftrightarrow 0 &= Aa^{1-\gamma}\left( \frac{\sigma}{1-\sigma}\beta^{1/\sigma}(1-\gamma)^{\frac{2\sigma-\sigma\gamma-1}{\sigma(1-\gamma)}}A^{\frac{\sigma-1}{\sigma(1-\gamma)}} - \frac{\beta(1-\gamma)}{1-\sigma} + \frac{(1-\gamma)(\mu-r)^2}{2\gamma\nu^2} + r(1-\gamma) \right) \\ 
+    \Leftrightarrow 0 &= \frac{\sigma}{1-\sigma}\beta^{1/\sigma}(1-\gamma)^{\frac{2\sigma-\sigma\gamma-1}{\sigma(1-\gamma)}}A^{\frac{\sigma-1}{\sigma(1-\gamma)}} - \frac{\beta(1-\gamma)}{1-\sigma} + \frac{(1-\gamma)(\mu-r)^2}{2\gamma\nu^2} + r(1-\gamma) \\
+    \Leftrightarrow 0 &=\frac{\sigma c(a)}{(1-\sigma)a}-\frac{\beta}{1-\sigma}+\frac{(\mu-r)^2}{2\gamma\nu^2}+r
+\end{aligned}
+\end{equation*}
+
+\hfill
+
+From which we can derive,
+$$c(a)=\left( \frac{\beta}{\sigma} - \frac{(1-\sigma)(\mu-r)^2}{2\gamma\sigma\nu^2}  -\frac{r(1-\sigma)}{\sigma} \right)a$$
+
+Now, the F.O.C. with respect to the risky asset share yields,
+$$V'(a)(\mu-r)a+V''(a)\theta \nu^2a^2=0$$
+
+Which finally gives us,
+$$\theta(a) = -\frac{V'(a)(\mu-r)}{V''(a)\nu^2a} = \frac{\mu - r}{\gamma\nu^2}$$
+\hfill $\square$
+
+\hfill
+
+\textbf{Lemma 2:} \textit{Consider the problem,}
+\begin{equation}
+    0=\max_{c, \theta}\{{f(c, V_j(a))+V_j'(a)(z^jw+ra+\theta(\mu-r)a-c)+\frac{1}{2}V_j''(a)a^2\theta^2\nu^2}+\lambda^j(V_{-j}(a)+V_j(a))\}
+\end{equation}
+\textit{Then, for any $\xi>0$,} 
+$$V_j(\xi a) = \xi^{1-\gamma}V_{\xi,j}(a)$$
+\textit{where $V_{\xi,j}$ solves the problem,}
+\begin{equation}
+    0 = \max_{c, \theta}\{{f(c, V_{\xi,j}(a))+V_{\xi,j}'(a)(\frac{z^jw}{\xi}+ra+\theta(\mu-r)a-c)+\frac{1}{2}V_{\xi,j}''(a)a^2\theta^2\nu^2}+\lambda^j(V_{\xi, -j}(a)+V_{\xi,j}(a))\}
+\end{equation}
+
+\newpage
+
+\textbf{Proof Lemma 2:} We consider,
+$$V_j(\xi a) = \xi^{1-\gamma}V_{\xi,j}(a)$$
+
+Hence,
+$$V_j(a) = \xi^{1-\gamma}V_{\xi,j}(a/\xi)$$
+$$V_j'(a) = \xi^{-\gamma}V_{\xi,j}'(a/\xi)$$
+$$V_j''(a) = \xi^{-\gamma-1}V_{\xi,j}''(a/\xi)$$
+
+We can plug these expressions into equation $(2)$. We use the same definitions of $H$ and $G$ as in the proof of Lemma 1. This then gives us,
+\begin{align*}
+    0 &= H(\xi^{1-\gamma}V_{\xi,j}(a/\xi), \xi^{-\gamma}V_{\xi,j}'(a/\xi)) + G(\xi^{-\gamma}V_{\xi,j}'(a/\xi), \xi^{-\gamma-1}V_{\xi,j}''(a/\xi)) \\
+      &\quad + \xi^{-\gamma}V_{\xi,j}'(a/\xi)(z^jw+ra) + \lambda^j(\xi^{1-\gamma}V_{\xi,-j}(a/\xi) - \xi^{1-\gamma}V_{\xi,j}(a/\xi))
+\end{align*}
+
+Some computation yields,
+$$H(\xi^{1-\gamma}V_{\xi,j}(a/\xi), \xi^{-\gamma}V_{\xi,j}'(a/\xi))=\xi^{1-\gamma}H(V_{\xi,j}(a/\xi),V_{\xi,j}'(a/\xi))$$
+
+Similarly,
+$$G(\xi^{-\gamma}V_{\xi,j}'(a/\xi), \xi^{-\gamma-1}V_{\xi,j}''(a/\xi))=\xi^{1-\gamma}G(V_{\xi,j}'(a/\xi), V_{\xi,j}''(a/\xi))$$
+
+Plugging in these expressions, dividing both sides by $\xi^{1-\gamma}$, and writing by slight abuse of notation $a=a/\xi$, we then finally obtain,
+$$0 = \max_{c, \theta}\{{f(c, V_{\xi,j}(a))+V_{\xi,j}'(a)(\frac{z^jw}{\xi}+ra+\theta(\mu-r)a-c)+\frac{1}{2}V_{\xi,j}''(a)a^2\theta^2\nu^2}+\lambda(V_{\xi, -j}(a)+V_{\xi,j}(a))\}$$
+\hfill $\square$
+
+\hfill
+
+\textbf{Proof Proposition 1:} We first derive the asymptotic consumption policy function. From the F.O.C. with respect to consumption and our expression for $V_{\xi, j}$ we obtain,
+\begin{align*}
+    c_j(a) &= \left[ \frac{1}{\beta}V_j'(a)((1-\gamma)V_j(a))^{\frac{\gamma-\sigma}{1-\gamma}} \right]^{-1/\sigma} = \left[ \frac{1}{\beta}\xi^{-\gamma}V_{\xi,j}'(a/\xi)((1-\gamma)\xi^{1-\gamma}V_{\xi,j}(a/\xi))^{\frac{\gamma-\sigma}{1-\gamma}} \right]^{-1/\sigma} = \xi c_{\xi,j}(a/\xi)
+\end{align*}
+
+In particular, for $\xi=a$ this gives us,
+$$c_j(a)=c_{\xi,j}(1)\cdot a$$
+
+We let $\xi=a \to \infty$ and obtain,
+$$\lim_{a \to \infty} \frac{c_j(a)}{a}=\lim_{\xi\to\infty}c_{\xi,j}(1)=\frac{\beta}{\sigma} - \frac{(1-\sigma)(\mu-r)^2}{2\gamma\sigma\nu^2}  -\frac{r(1-\sigma)}{\sigma}$$
+
+We first note that by Lemma 2, $c_{\xi, j}$ is the consumption policy function solving equation $(3)$. We then note that equation $(3)$ converges to equation $(1)$ as $\xi\to\infty$. Hence, by Lemma 1, we can write the second equality.
+
+\hfill
+
+Hence, we finally have that,
+$$c_j(a) \sim \left( \frac{\beta}{\sigma} - \frac{(1-\sigma)(\mu-r)^2}{2\gamma\sigma\nu^2}  -\frac{r(1-\sigma)}{\sigma} \right)a$$
+
+\hfill
+
+Similarly, from the F.O.C. with respect to risky asset share and our expression for $V_{\xi,j}$ we obtain,
+$$\theta_j(a)=-\frac{(\mu-r)V_j'(a)}{a\nu^2V_j''(a)}=-\frac{(\mu-r)V_{\xi,j}'(a/\xi)}{\frac{a}{\xi}\nu^2V_{\xi,j}''(a/\xi)}=\theta_{\xi,j}(a/\xi)$$
+
+In particular, for $\xi=a$ this gives us,
+$$\theta_j(a)=\theta_{\xi,j}(1)$$
+
+We let $\xi=a \to \infty$ and obtain,
+$$\lim_{a \to \infty}\theta_j(a)=\lim_{\xi\to\infty}\theta_{\xi,j}(1)=\frac{\mu-r}{\gamma\nu^2}$$
+
+The second equality follows from Lemma 1 and Lemma 2 by the same argument as before. Hence, we have,
+$$\theta_j(a) \sim \frac{\mu - r}{\gamma\nu^2}$$
+
+\hfill $\square$
+
+\hfill
+
+We will use the following property to impose our second boundary condition. By Proposition 2 and the F.O.C. with respect to the risky asset share we have that as $a\to\infty$,
+$$\theta(a)=-\frac{(\mu-r)V_j'(a)}{a\nu^2V_j''(a)} \sim \frac{\mu - r}{\gamma\nu^2} \Leftrightarrow V''_j(a) \sim -\gamma\frac{V_j'(a)}{a}$$
+
+\hfill
+
+We can solve for the stationary distribution by solving the KF equation with  reflecting barriers at both boundaries of the state space. We can solve for the general equilibrium by imposing a market clearing condition for the asset market.
+
+\end{document}

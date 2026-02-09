@@ -1,0 +1,36 @@
+# OS files
+.DS_Store
+
+# MATLAB
+*.asv
+*.m~
+*.mex*
+*.mlappinstall
+*.mltbx
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+
+# Editor files
+*.swp
+*~
+
+# Thesis
+docs/bachelorthesis.*
+
+# Output figures
+figures/
+
+# Old project
+old_project/
